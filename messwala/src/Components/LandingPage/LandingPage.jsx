@@ -63,6 +63,7 @@ const LandingPage = () => {
                         <RiUserShared2Fill className={styles.hover} />
                         <br />
                         <br />
+                        <br />
                         <p>USER</p>
                     </motion.div>
                     <motion.div
@@ -70,6 +71,7 @@ const LandingPage = () => {
                         style={{ backgroundColor: 'rgb(255, 113, 19)' }}
                     >
                         <DiYeoman className={styles.hover} />
+                        <br />
                         <br />
                         <br />
                         <p>MESSwala</p>

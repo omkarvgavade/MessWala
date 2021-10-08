@@ -1,33 +1,34 @@
-.main{
+.main {
     width: 100%;
     height: 99vh;
     display: flex;
 }
-.left{
+.left {
     width: 50%;
     padding: 5%;
     text-align: left;
     align-items: left;
     /* border: 1px solid black; */
 }
-.left>h1{
+.left > h1 {
     font-size: 52px;
 }
-.left>p{
-    font-size: 28px;
+.left > p {
+    font-size: 23px;
     color: grey;
-    margin-top: -20px;
+    /* margin-top: -10px; */
+    margin-bottom: 10px;
 }
-.searchBar{
+.searchBar {
     width: 80%;
     height: 50px;
     font-size: 16px;
     margin: auto;
     border: 1px solid grey;
 }
-.left>button{
+.left > button {
     width: 17%;
-    height: 54px;
+    height: 52px;
     background-color: rgb(255, 113, 19);
     cursor: pointer;
     color: white;
@@ -35,11 +36,10 @@
     border: none;
     /* border: 1px solid grey; */
 }
-.left>img{
-    
+.left > img {
     opacity: 1;
 }
-.right{
+.right {
     width: 48%;
     margin-top: -10px;
     /* border: 1px solid black; */
@@ -61,7 +61,7 @@
 }
 .icons > div > p {
     color: black;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
 }
 .icons > div:hover {
