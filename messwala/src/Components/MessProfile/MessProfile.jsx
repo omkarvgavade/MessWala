@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { MainLayOut } from '../../Styles/layouts'
 import Rating from '@mui/material/Rating';
@@ -7,8 +7,31 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import AddIcon from '@mui/icons-material/Add';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import {
+    makeStyles,
+    createMuiTheme,
+    MuiThemeProvider
+} from "@material-ui/core/styles"
+const useStyles = makeStyles({
+    button: {
+        textTransform: "none",
+        fontSize: "1rem",
+        fontWeight: "bold",
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center"
+    }
+});
 function MessProfile() {
+    const [tabValue, setTabvalue] = useState('one')
 
+    const handleTabChange = (event, newValue) => {
+        setTabvalue(newValue);
+    };
+    const classes = useStyles();
     return (
         <MainLayOut>
             <MessProfileStyled>
@@ -35,9 +58,24 @@ function MessProfile() {
                     <p>The difference between them is that px is a fix-size unit. If you say that this font is 16px, it is absolutely 16px wherever you put it. It's just that other devices may display it differently. A 16px font on your computer monitor might be displayed differently on a 16px font on your mobile phone.</p>
                 </div>
                 <div className="btns">
-                    <Button variant="contained" color="primary"><AddIcon />Add review</Button>
-                    <Button variant="contained" color="secondary"><FavoriteIcon />Add to favourites</Button>
-                    <Button variant="outlined" color="primary"><ShareIcon />Share</Button>
+                    <Button className={classes.button} variant="contained" color="primary"><AddIcon />Add review</Button>
+                    <Button className={classes.button} variant="contained" color="secondary"><FavoriteIcon />Add to favourites</Button>
+                    <Button className={classes.button} variant="outlined" color="primary"><ShareIcon />Share</Button>
+                </div>
+                <div className="tabs">
+                    <Box sx={{ width: '100%' }}>
+                        <Tabs
+                            value={tabValue}
+                            onChange={handleTabChange}
+                            textColor="secondary"
+                            indicatorColor="secondary"
+                            aria-label="secondary tabs example"
+                        >
+                            <Tab value="one" label="Meals" />
+                            <Tab value="two" label="Reviews" />
+                            <Tab value="three" label="Contact" />
+                        </Tabs>
+                    </Box>
                 </div>
             </MessProfileStyled>
         </MainLayOut>
@@ -107,7 +145,11 @@ width: 100%;
     margin-top: 1rem;
     display: flex;
     justify-content:space-between;
-    padding-right:40rem;
+    padding-right:35rem;
+    padding-left: 1rem;
+}
+.tabs{
+    margin-top: 1rem;
 }
 `
 

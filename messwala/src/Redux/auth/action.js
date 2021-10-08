@@ -1,6 +1,6 @@
 import axios from "axios";
-import { url } from "../../utils/url";
-import { setData } from "../../utils/localStorage";
+import { url } from "../../Utils/url";
+// import { setData } from "../../utils/localStorage";
 import {
   LOG_FAILURE,
   LOG_REQUEST,
