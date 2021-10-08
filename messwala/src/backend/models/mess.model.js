@@ -12,6 +12,7 @@ const messSchema = new mongoose.Schema({
     isBreakfast: { type: Boolean, required: false, default: false },
     breakFastTiming: { type: String, required: true },
     priceList: { type: String, required: true },
+    review:[{ type: String, required: false}],
    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true }
 
 })

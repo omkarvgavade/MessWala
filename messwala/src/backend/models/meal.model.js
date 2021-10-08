@@ -6,6 +6,5 @@ const mealSchema = new mongoose.Schema({
     image:{ type: String, required: true },
     price: { type: String, required: true },
     mess_id: { type: mongoose.Schema.Types.ObjectId, ref: "mess", required: true }
-
 })
 module.exports = mongoose.model('meal', mealSchema)
