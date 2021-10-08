@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import { useDispatch, useSelector ,shallowEqual} from "react-redux";
 import { logUser } from '../../Redux/auth/action';
-import axios from "axios"
+
 
 const style = {
   position: 'absolute',
@@ -65,10 +65,8 @@ console.log(payload)
           <Typography id="modal-modal-title" variant="h6" component="h2">
                       <TextField name="email" id="outlined-basic" onChange={handleChange} label="Email" variant="outlined" />
                       <TextField name="password" id="outlined-basic" onChange={handleChange} label="*********" variant="outlined" />
-                      <Button variant="contained" onClick={handleSave}>Login</Button>
-                      
+                      <Button variant="contained" onClick={handleSave}>Login</Button> 
           </Typography>
-         
         </Box>
       </Modal>
     </div>
