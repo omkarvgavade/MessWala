@@ -69,7 +69,7 @@ export const outUser = (data) => (dispatch) => {
 export const logUser = (data) => (dispatch) => {
   dispatch(logReq());
   axios
-    .post(`${url}/login`, data)
+    .post(`${url}/users/login`, data)
     .then(({ data }) => {
 
       return dispatch(logSuccess(data));
@@ -80,7 +80,7 @@ export const logUser = (data) => (dispatch) => {
 export const regUser = (data) => (dispatch) => {
   dispatch(regReq());
   axios
-    .post(`${url}/register`, data)
+    .post(`${url}/users/register`, data)
     .then(({ data }) => {
       return dispatch(regSuccess(data));
     })

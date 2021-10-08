@@ -1,8 +1,8 @@
-
+import MessProfile from "./Components/MessProfile/MessProfile";
 function App() {
   return (
     <div className="App">
-            kuch karo to batana
+      <MessProfile />
     </div>
   );
 }
