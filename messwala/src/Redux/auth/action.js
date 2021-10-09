@@ -11,6 +11,8 @@ import {
   OUT_FAILURE,
   OUT_REQUEST,
   OUT_SUCCESS,
+  MESS_SUCCESS,
+  MESS_FAILURE,
 } from "./actionTypes";
 
 export const logReq = () => {
@@ -31,6 +33,12 @@ export const regReq = () => {
 };
 export const regSuccess = (data) => {
   return { type: REG_SUCCESS, payload: data };
+};
+export const messSuccess = (data) => {
+  return { type: MESS_SUCCESS, payload: data };
+};
+export const messFailure = (err) => {
+  return { type: MESS_FAILURE, payload: err };
 };
 
 // export const postSuccess = (data) => {
@@ -71,7 +79,8 @@ export const logUser = (data) => (dispatch) => {
   axios
     .post(`${url}/users/login`, data)
     .then(({ data }) => {
-
+      console.log(data)
+      dispatch(getMessProfile(data.user._id))
       return dispatch(logSuccess(data));
     })
     .catch((err) => dispatch(logFail(err)));
@@ -86,3 +95,10 @@ export const regUser = (data) => (dispatch) => {
     })
     .catch((err) => dispatch(regFail(err)));
 };
+
+export const getMessProfile = (id) => (dispatch) => {
+  axios.get(`${url}/messes/${id}`).then(({ data }) => {
+    return dispatch(messSuccess(data));
+
+  }).catch((error) => dispatch(messFailure(error)));
+}

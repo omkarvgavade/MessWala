@@ -8,12 +8,15 @@ import {
   OUT_FAILURE,
   OUT_REQUEST,
   OUT_SUCCESS,
+  MESS_SUCCESS,
+  MESS_FAILURE
 } from "./actionTypes";
 
 
-const init = { user: {}, Load: false, Error: false, token: "", reg: false };
+const init = { user: {}, Load: false, Error: false, token: "", reg: false, MessProfile: {} };
 
 export const authReducer = (state = { ...init }, { type, payload }) => {
+  console.log(payload, "ajshdf");
   switch (type) {
     case LOG_REQUEST:
       return {
@@ -23,10 +26,11 @@ export const authReducer = (state = { ...init }, { type, payload }) => {
         reg: false,
       };
     case LOG_SUCCESS:
+      console.log(payload);
       return {
         ...state,
         Load: false,
-        user: payload.userOnline,
+        user: payload.user,
         token: payload.token,
       };
     case LOG_FAILURE:
@@ -75,8 +79,19 @@ export const authReducer = (state = { ...init }, { type, payload }) => {
         Load: false,
         Error: true,
       };
-
+    case MESS_SUCCESS:
+      return {
+        ...state,
+        MessProfile: payload
+      };
+    case MESS_FAILURE:
+      return {
+        ...state,
+        Load: false,
+        Error: true,
+      };
     default:
+
       return state;
   }
 };

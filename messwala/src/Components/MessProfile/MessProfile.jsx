@@ -10,6 +10,9 @@ import ShareIcon from '@mui/icons-material/Share';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { getMessProfile } from '../../Redux/auth/action';
+import { useEffect } from 'react'
 import {
     makeStyles,
     createMuiTheme,
@@ -26,7 +29,14 @@ const useStyles = makeStyles({
     }
 });
 function MessProfile() {
+    const dispatch = useDispatch();
+    const { auth: { user } } = useSelector(state => state, shallowEqual)
+    const { auth: { MessProfile } } = useSelector(state => state, shallowEqual)
     const [tabValue, setTabvalue] = useState('one')
+    // console.log(auth)
+    const [userProfile, setUserProfile] = useState(user)
+    const [mess, setMess] = useState(MessProfile.mess[0])
+
 
     const handleTabChange = (event, newValue) => {
         setTabvalue(newValue);
@@ -41,21 +51,21 @@ function MessProfile() {
                     </div>
                     <div className="headingInfo">
                         <div>
-                            <h1>Fozzie's Pizzaiolo</h1>
+                            <h1>{mess.title}</h1>
                         </div>
                         <div>
                             <Rating name="disabled" value={2} disabled />
-                            <span>351 reviews</span>
+                            <span>{mess.reviews.length}</span>
                         </div>
                     </div>
                 </div>
                 <div className="speciality">
-                    <div>Continental, Mexican, Fast Food, Desserts, Beverages</div>
-                    <div>Navrangpura, Ahmedabad</div>
+                    <div>{mess.speciality}</div>
+                    <div>{mess.city}</div>
                 </div>
                 <div className="bio">
                     <h2>Things, you can't ignore.....</h2>
-                    <p>The difference between them is that px is a fix-size unit. If you say that this font is 16px, it is absolutely 16px wherever you put it. It's just that other devices may display it differently. A 16px font on your computer monitor might be displayed differently on a 16px font on your mobile phone.</p>
+                    <p>{mess.description}</p>
                 </div>
                 <div className="btns">
                     <Button className={classes.button} variant="contained" color="primary"><AddIcon />Add review</Button>
@@ -71,9 +81,10 @@ function MessProfile() {
                             indicatorColor="secondary"
                             aria-label="secondary tabs example"
                         >
-                            <Tab value="one" label="Meals" />
-                            <Tab value="two" label="Reviews" />
-                            <Tab value="three" label="Contact" />
+                            <Tab value="one" label="Overview" />
+                            <Tab value="two" label="Meals" />
+                            <Tab value="three" label="Reviews" />
+                            <Tab value="four" label="Contact" />
                         </Tabs>
                     </Box>
                 </div>
@@ -84,6 +95,8 @@ function MessProfile() {
 
 const MessProfileStyled = styled.div`
 width: 100%;
+background-color:#ffff;
+    box-shadow: 0px -19px 9px black;
 .MessImageDiv{
     width: 100%;
     display: grid;
