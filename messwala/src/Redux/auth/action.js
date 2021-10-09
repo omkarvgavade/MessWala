@@ -110,6 +110,7 @@ export const regUser = (data) => (dispatch) => {
 export const getMessProfile = (id) => (dispatch) => {
   axios.get(`${url}/messes/${id}`).then(({ data }) => {
     console.log(data.mess[0]._id, "messes")
+    setData("messProfile", data)
     dispatch(getMeals(data.mess[0]._id))
     return dispatch(messSuccess(data));
 
@@ -117,6 +118,7 @@ export const getMessProfile = (id) => (dispatch) => {
 }
 export const getMeals = (id) => (dispatch) => {
   axios.get(`${url}/meals/mess/${id}`).then(({ data }) => {
+    setData("mealsarr", data);
     return dispatch(mealSuccess(data));
 
   }).catch((error) => dispatch(mealFailure(error)));

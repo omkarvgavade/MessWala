@@ -91,7 +91,7 @@ export function CreateMealForm({ setCreateMealModalOpen, createMealModalOpen, me
     >
         <Box sx={style}>
             <EditModalStyled>
-                <div><h1>Edit Details</h1></div>
+                <div><h1>Create New Meal</h1></div>
                 <div><TextField name="title" required fullWidth label="Title" className="inputfield" defaultValue={payload.title} onChange={handleChange} color="secondary" /></div>
                 <div><TextField name="menu" required fullWidth label="Menu" className="inputfield" defaultValue={payload.menu} onChange={handleChange} color="secondary" /></div>
                 <ImageSelectStyled>

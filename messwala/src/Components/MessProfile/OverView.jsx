@@ -4,13 +4,13 @@ import { useSelector, shallowEqual } from 'react-redux'
 import { useState } from 'react'
 import { MainLayOut } from '../../Styles/layouts'
 import EditIcon from "@mui/icons-material/Edit";
-function OverView() {
-    const { auth: { MessProfile } } = useSelector(state => state, shallowEqual)
-    const [mess, setMess] = useState(MessProfile.mess[0])
+function OverView({ mess }) {
+    // const { auth: { MessProfile } } = useSelector(state => state, shallowEqual)
+    // const [mess, setMess] = useState(MessProfile.mess[0])
     const [priceList, setPriceList] = useState(mess.priceList.split(","))
     console.log(priceList)
     return (
-        <MainLayOut>
+        <MainLayOutStyled>
             <OverViewStyled>
                 <div>
                     <div>
@@ -53,9 +53,14 @@ function OverView() {
                     </div>
                 </div>
             </OverViewStyled>
-        </MainLayOut>
+        </MainLayOutStyled>
     )
 }
+const MainLayOutStyled = styled.div`
+
+
+padding: 0 15rem;
+`
 const EditCompoStyled = styled.p`
   width: 35px;
   height: 35px;
@@ -71,7 +76,7 @@ const EditCompoStyled = styled.p`
 `;
 const OverViewStyled = styled.div`
 width: 35rem;
-  box-shadow: 0px 0px 13px rgb(140,147,157);
+
   border-radius: 1rem;
   height: auto;
   padding: 1rem;

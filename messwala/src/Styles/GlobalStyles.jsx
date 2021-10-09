@@ -13,6 +13,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.34;
   background-color: var(--secondary-background-2);
+  font-family: 'Rajdhani', sans-serif;
 }
 * {
   margin: 0;
