@@ -1,6 +1,6 @@
 import axios from "axios";
-import { url } from "../../Utils/url";
-// import { setData } from "../../utils/localStorage";
+import { url } from "../../utils/url";
+import { setData } from '../../utils/localStorage'
 import {
   LOG_FAILURE,
   LOG_REQUEST,
@@ -15,6 +15,7 @@ import {
   MESS_FAILURE,
   MEAL_SUCCESS,
   MEAL_FAILURE,
+  ONEMEAL_SUCCESS,
 } from "./actionTypes";
 
 export const logReq = () => {
@@ -48,6 +49,9 @@ export const mealSuccess = (data) => {
 export const mealFailure = (err) => {
   return { type: MEAL_FAILURE, payload: err };
 };
+export const oneMealSuccess = (data) => {
+  return { type: ONEMEAL_SUCCESS, payload: data }
+}
 
 // export const postSuccess = (data) => {
 //   return { type: POST_SUCCESS, payload: data };
@@ -112,7 +116,7 @@ export const getMessProfile = (id) => (dispatch) => {
   }).catch((error) => dispatch(messFailure(error)));
 }
 export const getMeals = (id) => (dispatch) => {
-  axios.get(`${url}/meals/${id}`).then(({ data }) => {
+  axios.get(`${url}/meals/mess/${id}`).then(({ data }) => {
     return dispatch(mealSuccess(data));
 
   }).catch((error) => dispatch(mealFailure(error)));
@@ -120,5 +124,21 @@ export const getMeals = (id) => (dispatch) => {
 export const deleteMeals = (id, messId) => (dispatch) => {
   axios.delete(`${url}/meals/${id}`).then(() => {
     return dispatch(getMeals(messId))
+  }).catch((error) => dispatch(mealFailure(error)));
+}
+export const editMeals = (id, messId, data) => (dispatch) => {
+  axios.patch(`${url}/meals/${id}`, data).then(() => {
+    return dispatch(getMeals(messId))
+  }).catch((error) => dispatch(mealFailure(error)));
+}
+export const saveMeals = (messId, data) => (dispatch) => {
+  axios.post(`${url}/meals`, data).then(() => {
+    return dispatch(getMeals(messId))
+  }).catch((error) => dispatch(mealFailure(error)));
+}
+export const getOneMeal = (id, data) => (dispatch) => {
+  axios.get(`${url}/meals/${id}`).then(({ data }) => {
+    setData("onemeal", data)
+    return dispatch(oneMealSuccess(data))
   }).catch((error) => dispatch(mealFailure(error)));
 }

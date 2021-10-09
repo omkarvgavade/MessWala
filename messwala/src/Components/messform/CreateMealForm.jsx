@@ -1,18 +1,18 @@
 import TextField from '@mui/material/TextField';
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Button from '@mui/material/Button';
 import axios from "axios";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import styled from "styled-components"
-import { editMeals, saveMeals } from '../../Redux/auth/action';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { saveMeals } from '../../Redux/auth/action';
+import { useDispatch, } from 'react-redux';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { styled as styled1 } from '@mui/material/styles';
 import Select from '@mui/material/Select';
-import { getData } from '../../utils/localStorage';
+
 const Input = styled1('input')({
     display: 'none',
 });
@@ -29,16 +29,20 @@ const style = {
     p: 4,
 
 };
-
-export function MealForm({ onemeal, setEditModalOpen, editModalOpen, mess_id }) {
+export function CreateMealForm({ setCreateMealModalOpen, createMealModalOpen, mess_id }) {
     const dispatch = useDispatch()
-    // const onemeals = getData("onemeal")
-    const [meal, setMeal] = useState(onemeal[0])
 
     const [imageUrl, setImageUrl] = useState("")
     const [imageLoading, setImageLoading] = useState(false)
-    const handleClose = () => setEditModalOpen(false);
-
+    const handleClose = () => setCreateMealModalOpen(false);
+    const [payload, setPayload] = useState({
+        title: "",
+        menu: "",
+        image: "",
+        price: "",
+        mess_id: mess_id,
+        type: ""
+    });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -48,28 +52,10 @@ export function MealForm({ onemeal, setEditModalOpen, editModalOpen, mess_id }) 
         });
 
     };
-    useEffect(() => {
-        console.log(getData("onemeal"))
-        // setMeal(getData("onemeal").meals)
-    }, [getData])
-
-    const [payload, setPayload] = useState({
-        title: meal?.title || "",
-        menu: meal?.menu || "",
-        image: meal?.image || "",
-        price: meal?.price || "",
-        mess_id: meal?.mess_id._id || "",
-        type: meal?.type || ""
-    });
     const handleSave = () => {
         payload.image = imageUrl
 
-        for (let key in payload) {
-            if (payload[key].length === 0) {
-                delete payload[key]
-            }
-        }
-        dispatch(editMeals(meal._id, mess_id, payload))
+        dispatch(saveMeals(mess_id, payload));
 
         handleClose()
 
@@ -98,7 +84,7 @@ export function MealForm({ onemeal, setEditModalOpen, editModalOpen, mess_id }) 
     }
 
     return <Modal
-        open={editModalOpen}
+        open={createMealModalOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"

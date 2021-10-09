@@ -12,10 +12,11 @@ import {
   MESS_FAILURE,
   MEAL_SUCCESS,
   MEAL_FAILURE,
+  ONEMEAL_SUCCESS
 } from "./actionTypes";
 
 
-const init = { user: {}, Load: false, Error: false, token: "", reg: false, MessProfile: {}, Meal: {} };
+const init = { user: {}, Load: false, Error: false, token: "", reg: false, MessProfile: {}, Meal: {}, onemeal: {} };
 
 export const authReducer = (state = { ...init }, { type, payload }) => {
 
@@ -102,6 +103,11 @@ export const authReducer = (state = { ...init }, { type, payload }) => {
         ...state,
         Load: false,
         Error: true,
+      };
+    case ONEMEAL_SUCCESS:
+      return {
+        ...state,
+        onemeal: payload
       };
     default:
 
