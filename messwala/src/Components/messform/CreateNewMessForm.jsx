@@ -14,7 +14,7 @@ import FormControl from "@mui/material/FormControl";
 import Modal from "@mui/material/Modal";
 import Select from "@mui/material/Select";
 import { useDispatch } from "react-redux";
-import { patchMessProfile } from "../../Redux/auth/action";
+import { patchMessProfile, postMessProfile } from "../../Redux/auth/action";
 const Input = styled1("input")({
     display: "none",
 });
@@ -32,29 +32,30 @@ const style = {
     overflowY: "scroll",
 };
 
-export function MessForm({
+export function CreateNewMessForm({
     mess,
     setMessEditModalOpen,
     messEditModalOpen,
     token,
     messuser
+
 }) {
     const dispatch = useDispatch()
     const handleClose = () => setMessEditModalOpen(false);
     const [imageUrl, setImageUrl] = useState("");
     const [imageLoading, setImageLoading] = useState(false);
     const [payload, setPayload] = useState({
-        breakFastTiming: mess.breakFastTiming || "",
-        city: mess.city || "",
-        description: mess.description || "",
-        eveningTimeSlot: mess.eveningTimeSlot || "",
-        isBreakfast: mess.isBreakfast || false,
-        isDelivery: mess.isDelivery || false,
-        morningTimeSlot: mess.morningTimeSlot || "",
-        priceList: mess.priceList || "",
-        review: mess.review || "",
-        speciality: mess.speciality || "",
-        title: mess.title || "",
+        breakFastTiming: "",
+        city: "",
+        description: "",
+        eveningTimeSlot: "",
+        isBreakfast: false,
+        isDelivery: false,
+        morningTimeSlot: "",
+        priceList: "",
+        review: "",
+        speciality: "",
+        title: "",
 
     });
     const handleChange = (e) => {
@@ -88,11 +89,14 @@ export function MessForm({
     };
     const handleSave = () => {
         payload.image = imageUrl
-        dispatch(patchMessProfile(mess._id, payload, token, messuser._id))
+        payload.user_id = messuser._id
+        dispatch(postMessProfile(payload, token, messuser._id))
+
     };
     console.log(payload);
 
     return (
+
         <Modal
             open={messEditModalOpen}
             onClose={handleClose}

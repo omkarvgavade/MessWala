@@ -5,7 +5,7 @@ const messSchema = new mongoose.Schema({
     description: { type: String, required: true },
     city: { type: String, required: true },
     speciality: { type: String, required: true },
-    image: { type: String, required: true },
+    image: { type: String, required: false },
     isDelivery: { type: Boolean, required: false, default: false },
     morningTimeSlot: { type: String, required: true },
     eveningTimeSlot: { type: String, required: true },

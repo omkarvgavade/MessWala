@@ -11,7 +11,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { getMessProfile } from "../../Redux/auth/action";
+import { getMessProfile, patchMessProfile } from "../../Redux/auth/action";
+import { CreateNewMessForm } from "../messform/CreateNewMessForm";
 import { useEffect } from "react";
 import MealsSection from "./MealsSection";
 import OverView from "./OverView";
@@ -40,12 +41,21 @@ function MessProfile() {
     const {
         auth: { MessProfile },
     } = useSelector((state) => state, shallowEqual);
+    const {
+        auth: { token },
+    } = useSelector((state) => state, shallowEqual);
+    console.log(token, "tokendskohf")
+
+    const messUser = getData("messuser").user
+    const token2 = getData("messuser").token
+    console.log(messUser, "shj")
+
     const [tabValue, setTabvalue] = useState("one");
     // console.log(auth)
     const [userProfile, setUserProfile] = useState(user);
     const messProfile = getData("messProfile")
 
-    const [mess, setMess] = useState(messProfile.mess[0]);
+    const [mess, setMess] = useState(messProfile?.mess[0]);
     const [messEditModalOpen, setMessEditModalOpen] = useState(false)
     const handleTabChange = (event, newValue) => {
         setTabvalue(newValue);
@@ -55,19 +65,19 @@ function MessProfile() {
     const handleMessEditOpen = () => {
         setMessEditModalOpen(true)
     }
-    return (
-        <MainLayOut>
+    if (messProfile.mess.length !== 0) {
+        return (<MainLayOut>
             <MessProfileStyled>
                 <div className="MessImageDiv">
                     <div className="imageDiv">
                         <img
-                            src="https://b.zmtcdn.com/data/pictures/0/19625810/63c4d74849093f2a0493198c1dc4e302.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"
+                            src={mess.image ? mess.image : "https://b.zmtcdn.com/data/pictures/0/19625810/63c4d74849093f2a0493198c1dc4e302.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"}
                             alt=""
                         />
                     </div>
                     <div className="headingInfo">
                         <div>
-                            <h1>{mess.title}</h1>
+                            <h1>{mess.title ? mess.title : "please edit details"}</h1>
                         </div>
                         <div>
                             <Rating name="disabled" value={2} disabled />
@@ -121,14 +131,74 @@ function MessProfile() {
                             <Tab value="four" label="Contact" />
                         </Tabs>
                     </Box>
-                    {messEditModalOpen ? <MessForm mess={mess} messEditModalOpen={messEditModalOpen} setMessEditModalOpen={setMessEditModalOpen} /> : ""}
+                    {messEditModalOpen ? <MessForm messuser={messUser} token={token2} mess={mess} messEditModalOpen={messEditModalOpen} setMessEditModalOpen={setMessEditModalOpen} /> : ""}
                 </div>
                 {tabValue === "one" ? <OverView mess={mess} /> : ""}
                 {tabValue === "two" ? <MealsSection mess={mess} /> : ""}
 
             </MessProfileStyled>
         </MainLayOut>
-    );
+        );
+    } else {
+        return <MainLayOut>
+            <MessProfileStyled>
+                <div className="MessImageDiv">
+                    <div className="imageDiv">
+                        <img
+                            src="https://b.zmtcdn.com/data/pictures/0/19625810/63c4d74849093f2a0493198c1dc4e302.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"
+                            alt=""
+                        />
+                    </div>
+                    <div className="headingInfo">
+                        <div>
+                            <h1>Please add Title</h1>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+                <div className="speciality">
+                    <div></div>
+                    <div></div>
+                </div>
+                <div className="bio">
+                    <h2>Things, you can't ignore.....</h2>
+                    <p>"oops! seems like you have nothing to show"</p>
+                </div>
+                <div className="btns">
+                    <Button
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                        onClick={handleMessEditOpen}
+                    >
+                        <AddIcon />
+                        Add Details
+                    </Button>
+
+                </div>
+                <div className="tabs">
+                    <Box sx={{ width: "100%" }}>
+                        <Tabs
+                            value={tabValue}
+                            onChange={handleTabChange}
+                            textColor="secondary"
+                            indicatorColor="secondary"
+                            aria-label="secondary tabs example"
+                        >
+                            <Tab value="one" label="Overview" />
+                            <Tab value="two" label="Meals" />
+                            <Tab value="three" label="Reviews" />
+                            <Tab value="four" label="Contact" />
+                        </Tabs>
+                    </Box>
+                    {messEditModalOpen ? <CreateNewMessForm messuser={messUser} token={token2} mess={mess} messEditModalOpen={messEditModalOpen} setMessEditModalOpen={setMessEditModalOpen} /> : ""}
+                </div>
+
+            </MessProfileStyled>
+        </MainLayOut>
+    }
 }
 
 const MessProfileStyled = styled.div`

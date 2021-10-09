@@ -91,8 +91,14 @@ export const logUser = (data) => (dispatch) => {
   axios
     .post(`${url}/users/login`, data)
     .then(({ data }) => {
-      dispatch(getMessProfile(data.user._id))
-      return dispatch(logSuccess(data));
+      setData("messuser", data)
+      console.log(data.user._id, "messuser")
+      dispatch(logSuccess(data));
+
+
+      return dispatch(getMessProfile(data.user._id))
+
+
     })
     .catch((err) => dispatch(logFail(err)));
 };
@@ -108,13 +114,44 @@ export const regUser = (data) => (dispatch) => {
 };
 
 export const getMessProfile = (id) => (dispatch) => {
-  axios.get(`${url}/messes/${id}`).then(({ data }) => {
-    console.log(data.mess[0]._id, "messes")
-    setData("messProfile", data)
-    dispatch(getMeals(data.mess[0]._id))
-    return dispatch(messSuccess(data));
+  console.log("calles", id)
+  axios.get(`${url}/messes/${id}`)
+    .then(({ data }) => {
+      console.log(data, "sdlkahoiuhf")
+      // console.log(data.mess[0]._id, "messes")
+      // console.log(data, "this is data")
+      setData("messProfile", data)
+      dispatch(getMeals(data.mess[0]._id))
+      return dispatch(messSuccess(data));
 
-  }).catch((error) => dispatch(messFailure(error)));
+    })
+    .catch((error) => dispatch(messFailure(error)));
+}
+export const patchMessProfile = (id, data, token, userId) => (dispatch) => {
+  console.log(userId)
+  console.log(token, "token")
+  axios.patch(`${url}/messes/${id}`, data, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }).then(({ data }) => {
+
+    console.log("patched", data)
+    return dispatch(getMessProfile(userId))
+  })
+}
+export const postMessProfile = (data, token, userId) => (dispatch) => {
+  console.log(userId)
+  console.log(token, "token")
+  axios.post(`${url}/messes`, data, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }).then(({ data }) => {
+
+    console.log("patched", data)
+    return dispatch(getMessProfile(userId))
+  })
 }
 export const getMeals = (id) => (dispatch) => {
   axios.get(`${url}/meals/mess/${id}`).then(({ data }) => {
