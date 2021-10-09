@@ -44,6 +44,10 @@ export default function FoodCard() {
           </div>
         </div>
       </CardContent>
+       <div>
+          
+          <p>Gandhi nagar Bhopal</p>
+       </div>
     </Card>
   );
 }

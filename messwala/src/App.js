@@ -1,11 +1,11 @@
-// import MainDisplay from "./Components/MainDisplay";
-import Messinfo from "./Components/Messinfo";
+import MainDisplay from "./Components/MessDescription/MainDisplay";
+import Messinfo from "./Components/MessDescription/Messinfo";
 
 
 function App() {
   return (
     <div >
-       {/* <MainDisplay/> */}
+       <MainDisplay/>
        <Messinfo/>
     </div>
   );
