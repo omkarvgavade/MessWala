@@ -13,7 +13,7 @@ app.use(express.json())
 
 app.use("/messes", messController)
 app.use("/users", usersController)
-app.use("/meal", mealController)
+app.use("/meals", mealController)
 app.listen(8000, async function () {
     await connect()
     console.log("listening on port 8000")

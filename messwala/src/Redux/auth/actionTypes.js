@@ -10,3 +10,5 @@ export const OUT_REQUEST = "OUT_REQUEST";
 export const OUT_SUCCESS = "OUT_SUCCESS";
 export const MESS_SUCCESS = "MESS_SUCCESS";
 export const MESS_FAILURE = "MESS_FAILURE";
+export const MEAL_SUCCESS = "MEAL_SUCCESS";
+export const MEAL_FAILURE = "MEAL_FAILURE"

@@ -13,6 +13,8 @@ import {
   OUT_SUCCESS,
   MESS_SUCCESS,
   MESS_FAILURE,
+  MEAL_SUCCESS,
+  MEAL_FAILURE,
 } from "./actionTypes";
 
 export const logReq = () => {
@@ -39,6 +41,12 @@ export const messSuccess = (data) => {
 };
 export const messFailure = (err) => {
   return { type: MESS_FAILURE, payload: err };
+};
+export const mealSuccess = (data) => {
+  return { type: MEAL_SUCCESS, payload: data };
+};
+export const mealFailure = (err) => {
+  return { type: MEAL_FAILURE, payload: err };
 };
 
 // export const postSuccess = (data) => {
@@ -79,7 +87,6 @@ export const logUser = (data) => (dispatch) => {
   axios
     .post(`${url}/users/login`, data)
     .then(({ data }) => {
-      console.log(data)
       dispatch(getMessProfile(data.user._id))
       return dispatch(logSuccess(data));
     })
@@ -98,7 +105,20 @@ export const regUser = (data) => (dispatch) => {
 
 export const getMessProfile = (id) => (dispatch) => {
   axios.get(`${url}/messes/${id}`).then(({ data }) => {
+    console.log(data.mess[0]._id, "messes")
+    dispatch(getMeals(data.mess[0]._id))
     return dispatch(messSuccess(data));
 
   }).catch((error) => dispatch(messFailure(error)));
+}
+export const getMeals = (id) => (dispatch) => {
+  axios.get(`${url}/meals/${id}`).then(({ data }) => {
+    return dispatch(mealSuccess(data));
+
+  }).catch((error) => dispatch(mealFailure(error)));
+}
+export const deleteMeals = (id, messId) => (dispatch) => {
+  axios.delete(`${url}/meals/${id}`).then(() => {
+    return dispatch(getMeals(messId))
+  }).catch((error) => dispatch(mealFailure(error)));
 }

@@ -4,13 +4,15 @@ import { Login } from "./Components/authentication/loginform";
 import { MessForm } from "./Components/messform/messForm";
 import { MealForm } from "./Components/messform/mealForm";
 import LandingPage from "./Components/LandingPage/LandingPage";
+import MealsSection from "./Components/MessProfile/MealsSection";
 import OverView from './Components/MessProfile/OverView'
 function App() {
   return (
     <div className="App">
       <Login />
       {/* <MessProfile /> */}
-      <OverView />
+      {/* <OverView /> */}
+      <MealsSection />
       {/* <Signup /> */}
     </div>
   );
