@@ -94,22 +94,7 @@ function MessProfile() {
                     <p>{mess.description}</p>
                 </div>
                 <div className="btns">
-                    <Button
-                        className={classes.button}
-                        variant="contained"
-                        color="primary"
-                    >
-                        <AddIcon />
-                        Add review
-                    </Button>
-                    <Button
-                        className={classes.button}
-                        variant="contained"
-                        color="secondary"
-                    >
-                        <FavoriteIcon />
-                        Add to favourites
-                    </Button>
+
                     <Button className={classes.button} variant="outlined" color="primary">
                         <ShareIcon />
                         Share
