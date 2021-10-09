@@ -1,8 +1,12 @@
+// import MainDisplay from "./Components/MainDisplay";
+import Messinfo from "./Components/Messinfo";
+
 
 function App() {
   return (
-    <div className="App">
-
+    <div >
+       {/* <MainDisplay/> */}
+       <Messinfo/>
     </div>
   );
 }
