@@ -11,8 +11,12 @@ router.post('', authenticate, authorize(["admin"]), async (req, res) => {
     return res.status(201).json({ mess })
 })
 
-router.get('', authenticate, async (req, res) => {
-    const mess = await Mess.find().lean().exec()
+router.get('', async (req, res) => {
+    const mess = await Mess.find().populate("user_id").lean().exec()
+    return res.status(200).json({ mess })
+})
+router.get('/:id', async (req, res) => {
+    const mess = await Mess.find({ "user_id": { "_id": req.params.id } }).populate("user_id").lean().exec()
     return res.status(200).json({ mess })
 })
 

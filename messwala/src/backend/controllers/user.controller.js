@@ -11,7 +11,7 @@ const newToken = (user) => {
 
 
 const signup = async (req, res) => {
- 
+
     try {
         const user = await User.create(req.body)
         const token = newToken(user);
@@ -32,7 +32,7 @@ const login = async (req, res) => {
         if (!match) return res.status(400).json({ status: "failed", message: "Please try with a different email" })
 
         const token = newToken(user)
-        return res.status(201).json({ token: token })
+        return res.status(201).json({ user: user, token: token })
     } catch (err) {
         return res.status(500).json({ status: "failed", message: "something went wrong" })
     }
