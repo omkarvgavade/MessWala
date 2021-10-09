@@ -1,12 +1,12 @@
-import MainDisplay from "./Components/MessDescription/MainDisplay";
-import Messinfo from "./Components/MessDescription/Messinfo";
-
-
+import { Signup } from "./Components/authentication/signup"
+import { Login } from "./Components/authentication/loginform";
+import { MessForm } from "./Components/messform/messForm";
+import { MealForm } from "./Components/messform/mealForm";
+import LandingPage from "./Components/LandingPage/LandingPage";
 function App() {
   return (
-    <div >
-       <MainDisplay/>
-       <Messinfo/>
+    <div className="App">
+      <LandingPage/>
     </div>
   );
 }
